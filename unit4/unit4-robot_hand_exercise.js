@@ -67,6 +67,17 @@ function fillScene() {
 	// YOUR CODE HERE
 	// Add the second grabber handRight. Note that it uses a different color, defined above
 	// ALSO EDIT render() TO ENABLE CONTROLS FOR GRABBER
+	handRight = new THREE.Object3D();
+	createRobotGrabber(handRight, handLength, robotHandRightMaterial);
+	// Move the hand part to the end of the forearm.
+	handRight.position.y = faLength;
+	forearm.add(handRight);
+
+	// var hand = new THREE.Object3D();
+	// hand.add( handLeft );
+	// hand.add( handRight );
+
+	// forearm.add( hand );
 }
 
 function createRobotGrabber( part, length, material )
@@ -187,7 +198,7 @@ function render() {
 		fillScene();
 		drawHelpers();
 	}
-
+	
 	arm.rotation.y = effectController.uy * Math.PI/180;	// yaw
 	arm.rotation.z = effectController.uz * Math.PI/180;	// roll
 
@@ -197,6 +208,8 @@ function render() {
 	// ADD handRight yaw AND translate HERE
 	handLeft.rotation.z = effectController.hz * Math.PI/180;	// yaw
 	handLeft.position.z = effectController.htz;	// translate
+	handRight.rotation.z = effectController.hz * Math.PI / 180;	// yaw
+	handRight.position.z = - effectController.htz;	// translate
 
 	renderer.render(scene, camera);
 }
